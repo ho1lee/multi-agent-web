@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Agent Tech Session</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900 print:bg-white print:text-black">
+  <header class="sticky top-0 z-10 bg-blue-900 text-white">
+    <div class="container mx-auto flex items-center justify-between px-4 py-2">
+      <h1 class="text-lg font-bold">Multi-Agent Tech Session</h1>
+      <nav aria-label="주요 목차">
+        <ul class="flex space-x-4 text-sm">
+          <li><a href="#background" class="hover:underline focus:underline">배경</a></li>
+          <li><a href="#concepts" class="hover:underline focus:underline">개념</a></li>
+          <li><a href="#implementation" class="hover:underline focus:underline">구현</a></li>
+          <li><a href="#tools" class="hover:underline focus:underline">도구</a></li>
+          <li><a href="#lessons" class="hover:underline focus:underline">성과</a></li>
+          <li><a href="#qa" class="hover:underline focus:underline">Q&A</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container mx-auto space-y-12 px-4 py-6" id="content">
+    <section id="background" class="scroll-mt-20">
+      <h2 class="mb-4 text-xl font-semibold">1. 과제 수행 배경과 세미나 목표</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div>
+          <h3 class="font-semibold">과제 수행 배경</h3>
+          <p class="mt-2">Palantir AIP 도입 전 투자의 타당성과 효과성을 검증하기 위해, 현재 DS Agent 개발 환경에서 Multi-Agent를 구현하고 기능 및 효과를 비교 검토합니다.</p>
+          <ul class="list-disc pl-5">
+            <li>기존 시스템과의 통합 비용 파악</li>
+            <li>운영 규칙 및 RBAC 정책 사전 점검</li>
+            <li>관측성 확보를 위한 로그·메트릭·트레이싱 설계</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold">세미나 목표</h3>
+          <p class="mt-2">참석자가 LLM, Agent, Multi-Agent, MCP, A2A에 대한 개념을 이해하도록 돕습니다.</p>
+          <ul class="list-disc pl-5">
+            <li>용어 정의와 관계 구조 파악</li>
+            <li>운영 관점에서의 장점과 주의사항</li>
+            <li>장애 대응과 비용 예측 방법</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="concepts" class="scroll-mt-20">
+      <h2 class="mb-4 text-xl font-semibold">2. 개념</h2>
+      <div class="space-y-2">
+        <div>
+          <button data-accordion-button aria-label="LLM 설명" class="w-full rounded bg-gray-200 px-4 py-2 text-left">LLM</button>
+          <div class="hidden border border-t-0 border-gray-200 p-4">
+            <p>대규모 언어 모델은 많은 문장을 학습해 언어 패턴을 예측합니다. 초급자에게는 커다란 자동 완성 도구처럼 느낄 수 있습니다.</p>
+            <ul class="list-disc pl-5">
+              <li>배포 시 모델 크기에 따른 비용 변동</li>
+              <li>환각 가능성에 대비한 검증 프로세스</li>
+              <li>로그와 감사 기능으로 책임 추적</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <button data-accordion-button aria-label="Agent 설명" class="w-full rounded bg-gray-200 px-4 py-2 text-left">Agent</button>
+          <div class="hidden border border-t-0 border-gray-200 p-4">
+            <p>Agent는 LLM 위에 규칙과 도구 사용 능력을 얹어 특정 업무를 수행하도록 만든 모듈입니다. 운영자의 스크립트 실행 자동화처럼 이해할 수 있습니다.</p>
+            <ul class="list-disc pl-5">
+              <li>권한 부여(RBAC)로 실행 범위 제한</li>
+              <li>툴 실패 시 재시도 및 롤백 절차 필요</li>
+              <li>메트릭 기반 성능 모니터링</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <button data-accordion-button aria-label="MCP 설명" class="w-full rounded bg-gray-200 px-4 py-2 text-left">MCP</button>
+          <div class="hidden border border-t-0 border-gray-200 p-4">
+            <p>Model Context Protocol은 서로 다른 시스템이 공통 방식으로 LLM과 정보를 주고받도록 하는 규약입니다.</p>
+            <ul class="list-disc pl-5">
+              <li>표준화된 인터페이스로 통합 비용 감소</li>
+              <li>데이터 접근 로그 남김으로 감사 용이</li>
+              <li>장기 컨텍스트 손실 시 재동기화 필요</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <button data-accordion-button aria-label="Multi-Agent 설명" class="w-full rounded bg-gray-200 px-4 py-2 text-left">Multi-Agent</button>
+          <div class="hidden border border-t-0 border-gray-200 p-4 space-y-4">
+            <p>여러 Agent가 역할을 나누어 협업하면 한 Agent가 처리하기 어려운 문제를 나눠 해결할 수 있습니다.</p>
+            <ul class="list-disc pl-5">
+              <li>단일 LLM의 한계점: 긴 업무에서 정보 손실</li>
+              <li>작업 분산을 통한 성능 향상</li>
+              <li>전문화된 역할 분담으로 장애 격리</li>
+            </ul>
+            <svg viewBox="0 0 200 80" class="mx-auto h-32 w-full" role="img" aria-label="Multi-Agent Diagram">
+              <circle cx="40" cy="40" r="15" fill="#1e3a8a"></circle>
+              <circle cx="100" cy="20" r="15" fill="#1e3a8a"></circle>
+              <circle cx="160" cy="40" r="15" fill="#1e3a8a"></circle>
+              <line x1="55" y1="40" x2="85" y2="20" stroke="#6b7280" stroke-width="2"></line>
+              <line x1="115" y1="20" x2="145" y2="40" stroke="#6b7280" stroke-width="2"></line>
+              <text x="40" y="70" font-size="12" text-anchor="middle">Agent A</text>
+              <text x="100" y="10" font-size="12" text-anchor="middle">Task</text>
+              <text x="160" y="70" font-size="12" text-anchor="middle">Agent B</text>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <button data-accordion-button aria-label="A2A 설명" class="w-full rounded bg-gray-200 px-4 py-2 text-left">A2A</button>
+          <div class="hidden border border-t-0 border-gray-200 p-4">
+            <p>Agent-to-Agent 상호작용은 여러 Agent가 서로 메시지를 주고받아 협업하는 방식을 말합니다.</p>
+            <ul class="list-disc pl-5">
+              <li>권한 분리로 보안 경계 강화</li>
+              <li>통신 실패 시 재시도 및 알림</li>
+              <li>비용 집계로 최적화 지점 파악</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="implementation" class="scroll-mt-20">
+      <h2 class="mb-4 text-xl font-semibold">3. 실제 구현 사례</h2>
+      <div>
+        <div class="mb-4 flex border-b">
+          <button data-tab-target="code" class="border-b-2 border-blue-600 px-4 py-2 text-sm" aria-label="코드 탭">코드</button>
+          <button data-tab-target="demo" class="px-4 py-2 text-sm" aria-label="데모 탭">데모</button>
+        </div>
+        <div id="code" data-tab-content>
+          <pre class="relative rounded bg-gray-800 p-4 text-sm text-gray-100"><code id="codeSample">import agents
+
+coordinator = agents.Manager()
+worker = agents.Worker()
+
+# 더미 실행: 실제 키 없이 로컬 로그만 출력
+coordinator.assign("로그 수집", worker)
+</code>
+            <button id="copyBtn" aria-label="코드 복사" class="absolute right-2 top-2 rounded bg-blue-600 px-2 py-1 text-xs text-white">복사</button>
+          </pre>
+        </div>
+        <div id="demo" data-tab-content class="hidden">
+          <button id="runDemo" class="mb-2 rounded bg-blue-600 px-4 py-2 text-white" aria-label="데모 실행">실행</button>
+          <pre id="demoLog" class="h-32 overflow-auto rounded border p-2 text-sm" aria-label="데모 로그"></pre>
+        </div>
+      </div>
+    </section>
+    <section id="tools" class="scroll-mt-20">
+      <h2 class="mb-4 text-xl font-semibold">4. 개발 도구 및 프레임워크</h2>
+      <p class="mb-2">운영 환경에서 검증된 도구를 중심으로 선택합니다.</p>
+      <ul class="list-disc pl-5">
+        <li>LangChain: 모듈형 에이전트 구성</li>
+        <li>FastAPI: 경량 REST 서비스 구축</li>
+        <li>Prometheus & Grafana: 메트릭 수집과 대시보드</li>
+      </ul>
+    </section>
+    <section id="lessons" class="scroll-mt-20">
+      <h2 class="mb-4 text-xl font-semibold">5. 성과와 교훈</h2>
+      <p class="mb-2">시범 적용 결과, 운영 효율은 향상되었으나 주의할 점도 확인되었습니다.</p>
+      <ul class="list-disc pl-5">
+        <li>RBAC와 감사 로그로 권한 사용 추적 가능</li>
+        <li>작업 분산으로 평균 처리 시간이 20% 감소</li>
+        <li>환각·툴 실패 시 인간 검증 절차 필요</li>
+      </ul>
+      <p class="mt-2 text-sm text-gray-700">※ 장기 컨텍스트 손실과 비용 증가는 지속 관찰이 필요합니다.</p>
+    </section>
+    <section id="qa" class="scroll-mt-20">
+      <h2 class="mb-4 text-xl font-semibold">6. Q&A</h2>
+      <p>질문은 언제든지 보내 주세요. 운영과 보안 관점에서의 우려 사항도 환영합니다.</p>
+      <ul class="list-disc pl-5">
+        <li>배포 시 장애 대응 전략은?</li>
+        <li>비용 한도 초과 시 알림 체계는?</li>
+        <li>장기 로그 보존 정책은?</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+    (function() {
+      const accButtons = document.querySelectorAll('[data-accordion-button]');
+      accButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const content = btn.nextElementSibling;
+          content.classList.toggle('hidden');
+        });
+      });
+
+      const tabButtons = document.querySelectorAll('[data-tab-target]');
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-tab-target');
+          document.querySelectorAll('[data-tab-content]').forEach(c => c.classList.add('hidden'));
+          document.getElementById(target).classList.remove('hidden');
+          tabButtons.forEach(b => b.classList.remove('border-b-2','border-blue-600'));
+          btn.classList.add('border-b-2','border-blue-600');
+        });
+      });
+
+      const copyBtn = document.getElementById('copyBtn');
+      copyBtn.addEventListener('click', () => {
+        const code = document.getElementById('codeSample').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          copyBtn.textContent = '복사됨';
+          setTimeout(() => { copyBtn.textContent = '복사'; }, 2000);
+        }).catch(() => { alert('복사 실패'); });
+      });
+
+      const demoBtn = document.getElementById('runDemo');
+      demoBtn.addEventListener('click', () => {
+        const log = document.getElementById('demoLog');
+        log.textContent = 'AgentA: 서버 상태 점검\n';
+        setTimeout(() => { log.textContent += 'AgentB: 로그 수집 완료\n'; }, 500);
+        setTimeout(() => { log.textContent += 'AgentA: 이상 없음 보고\n'; }, 1000);
+      });
+
+      const sections = Array.from(document.querySelectorAll('main section'));
+      let currentIndex = 0;
+      function scrollToSection(index) {
+        if (index >= 0 && index < sections.length) {
+          currentIndex = index;
+          sections[currentIndex].scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      document.addEventListener('keydown', e => {
+        if (['INPUT','TEXTAREA'].includes(e.target.tagName)) return;
+        if (e.key === 'n') scrollToSection(currentIndex + 1);
+        if (e.key === 'p') scrollToSection(currentIndex - 1);
+      });
+    })();
+  </script>
+</body>
+</html>
