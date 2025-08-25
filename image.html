@@ -1,39 +1,70 @@
-html
-<figure class="card">
-  <div class="media">
-    <img
-      src="myimage-1600.jpg"
-      srcset="myimage-800.jpg 800w, myimage-1600.jpg 1600w, myimage-2400.jpg 2400w"
-      sizes="(min-width: 900px) 50vw, 100vw"
-      alt="이미지 설명"
-      width="1600" height="900"
-      loading="lazy" decoding="async"
-    />
-  </div>
-  <figcaption>
-    <div class="title">카드 제목</div>
-    <div class="desc">간단한 설명 텍스트</div>
-  </figcaption>
-</figure>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>ReAct Loop Diagram (Aligned)</title>
+  <style>
+    body{font-family:sans-serif; padding:20px;}
+    svg{width:100%; max-width:800px; height:auto;}
+    .node rect, .node polygon{fill:#fff; stroke:#333; stroke-width:1.5;}
+    .node text{font-size:14px; font-weight:bold; text-anchor:middle; dominant-baseline:middle;}
+    .edge path{stroke:#666; stroke-width:1.5; fill:none; marker-end:url(#arrow);} 
+  </style>
+</head>
+<body>
+  <h2>ReAct 루프 (정렬된 그래프)</h2>
+  <svg viewBox="0 0 800 600">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#666" />
+      </marker>
+    </defs>
 
+    <!-- User Goal -->
+    <g class="node" transform="translate(300,40)">
+      <rect x="0" y="0" width="200" height="50" rx="8" ry="8" />
+      <text x="100" y="25">사용자 목표</text>
+    </g>
 
+    <!-- Thought -->
+    <g class="node" transform="translate(300,130)">
+      <rect x="0" y="0" width="200" height="50" rx="8" ry="8" />
+      <text x="100" y="25">Reasoning (생각)</text>
+    </g>
 
-css
-figure.card{
-  border-radius:16px;
-  background:#fff;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
-  overflow:hidden;
-  display:flex; flex-direction:column;
-  transition: transform .15s ease;
-}
-figure.card:hover{ transform: translateY(-2px); }
+    <!-- Action -->
+    <g class="node" transform="translate(300,220)">
+      <rect x="0" y="0" width="200" height="50" rx="8" ry="8" />
+      <text x="100" y="25">Action (도구 호출)</text>
+    </g>
 
-.media{ position:relative; aspect-ratio:16/9; overflow:hidden; }
-.media img{ width:100%; height:100%; object-fit:cover; display:block;
-            transition: transform .35s ease; }
-figure.card:hover .media img{ transform: scale(1.03); }
+    <!-- Observation -->
+    <g class="node" transform="translate(300,310)">
+      <rect x="0" y="0" width="200" height="50" rx="8" ry="8" />
+      <text x="100" y="25">Observation (관찰)</text>
+    </g>
 
-figcaption{ padding:16px 18px; line-height:1.5; }
-figcaption .title{ font-weight:700; margin-bottom:6px; }
-figcaption .desc{ color:#555; font-size:.95rem; }
+    <!-- Decision -->
+    <g class="node" transform="translate(300,400)">
+      <polygon points="100,0 200,25 100,50 0,25" />
+      <text x="100" y="25">목표 달성?</text>
+    </g>
+
+    <!-- Final Answer -->
+    <g class="node" transform="translate(300,490)">
+      <rect x="0" y="0" width="200" height="50" rx="8" ry="8" />
+      <text x="100" y="25">최종 답변</text>
+    </g>
+
+    <!-- Edges (straight vertical connections) -->
+    <g class="edge"><path d="M400 90 L400 130" /></g>
+    <g class="edge"><path d="M400 180 L400 220" /></g>
+    <g class="edge"><path d="M400 270 L400 310" /></g>
+    <g class="edge"><path d="M400 360 L400 400" /></g>
+    <g class="edge"><path d="M400 450 L400 490" /></g>
+
+    <!-- Loop back from Decision to Thought -->
+    <g class="edge"><path d="M300 425 C 200 425, 200 155, 300 155" /></g>
+  </svg>
+</body>
+</html>
